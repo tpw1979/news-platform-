@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全球新闻推送与语音朗读平台</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部导航 -->
+        <header class="header">
+            <h1><i class="fas fa-newspaper"></i> 全球新闻推送平台</h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-tab="news">新闻推送</button>
+                <button class="nav-btn" data-tab="editor">文本编辑器</button>
+                <button class="nav-btn" data-tab="settings">设置</button>
+            </nav>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 新闻推送标签页 -->
+            <div class="tab-content active" id="news-tab">
+                <!-- 城市选择器 -->
+                <section class="city-selector">
+                    <h2>选择关注城市</h2>
+                    <div class="city-grid">
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="佛山" checked><span>佛山</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="珠海" checked><span>珠海</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="汕头" checked><span>汕头</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="茂名" checked><span>茂名</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="惠州" checked><span>惠州</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="深圳" checked><span>深圳</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="香港" checked><span>香港</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="越南" checked><span>越南</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="台湾" checked><span>台湾</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="新加坡" checked><span>新加坡</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="天津" checked><span>天津</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="贵州" checked><span>贵州</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="西安" checked><span>西安</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="日本" checked><span>日本</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="英国" checked><span>英国</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="美国" checked><span>美国</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="委内瑞拉" checked><span>委内瑞拉</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="澳洲" checked><span>澳洲</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="中山" checked><span>中山</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="澳门" checked><span>澳门</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="肇庆" checked><span>肇庆</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="江门" checked><span>江门</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="加拿大" checked><span>加拿大</span>
+                        </label>
+                        <label class="city-checkbox">
+                            <input type="checkbox" value="印尼" checked><span>印尼</span>
+                        </label>
+                    </div>
+                    <div class="controls">
+                        <button id="refreshNews" class="btn-primary">
+                            <i class="fas fa-sync-alt"></i> 刷新新闻
+                        </button>
+                        <button id="autoRefresh" class="btn-secondary">
+                            <i class="fas fa-clock"></i> 自动更新: 关闭
+                        </button>
+                    </div>
+                </section>
+
+                <!-- 新闻展示区域 -->
+                <section class="news-container">
+                    <div class="news-filters">
+                        <select id="newsCategory">
+                            <option value="all">全部类别</option>
+                            <option value="social">社会</option>
+                            <option value="domestic">国内</option>
+                            <option value="international">国际</option>
+                            <option value="sports">体育</option>
+                            <option value="entertainment">娱乐</option>
+                            <option value="technology">科技</option>
+                        </select>
+                        <input type="text" id="searchNews" placeholder="搜索新闻关键词...">
+                    </div>
+                    <div id="newsList" class="news-list">
+                        <div class="loading">正在加载新闻...</div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 文本编辑器标签页 -->
+            <div class="tab-content" id="editor-tab">
+                <section class="editor-section">
+                    <h2>文本编辑器与语音合成</h2>
+                    <div class="editor-container">
+                        <div class="editor-tools">
+                            <button id="speakText" class="btn-primary">
+                                <i class="fas fa-volume-up"></i> 朗读文本
+                            </button>
+                            <button id="pauseSpeech" class="btn-secondary">
+                                <i class="fas fa-pause"></i> 暂停
+                            </button>
+                            <button id="stopSpeech" class="btn-secondary">
+                                <i class="fas fa-stop"></i> 停止
+                            </button>
+                            <select id="voiceSelect">
+                                <option value="">选择语音</option>
+                            </select>
+                            <label>语速: <input type="range" id="rateSlider" min="0.1" max="3" step="0.1" value="1"></label>
+                            <label>音调: <input type="range" id="pitchSlider" min="0" max="2" step="0.1" value="1"></label>
+                            <label>音量: <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1"></label>
+                        </div>
+                        <textarea id="textEditor" placeholder="在这里输入或粘贴您要编辑和朗读的文字..."></textarea>
+                        <div class="audio-controls">
+                            <button id="convertToAudio" class="btn-success">
+                                <i class="fas fa-music"></i> 转换为音频文件
+                            </button>
+                            <select id="audioFormat">
+                                <option value="mp3">MP3</option>
+                                <option value="wav">WAV</option>
+                            </select>
+                            <span id="audioStatus"></span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 设置标签页 -->
+            <div class="tab-content" id="settings-tab">
+                <section class="settings-section">
+                    <h2>系统设置</h2>
+                    <div class="settings-group">
+                        <h3>API配置</h3>
+                        <div class="setting-item">
+                            <label>聚合数据API Key:</label>
+                            <input type="password" id="apiKey" value="5781f058b97694a1b9bfbb955ac5f3b8" readonly>
+                        </div>
+                        <div class="setting-item">
+                            <label>API ID:</label>
+                            <input type="text" id="apiId" value="235" readonly>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h3>语音设置</h3>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" id="autoSpeakNews" checked> 自动朗读新新闻
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" id="enableNotifications" checked> 启用新闻推送通知
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h3>界面设置</h3>
+                        <div class="setting-item">
+                            <label>主题模式:</label>
+                            <select id="themeSelect">
+                                <option value="light">浅色主题</option>
+                                <option value="dark">深色主题</option>
+                                <option value="auto">跟随系统</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- 音频播放器 -->
+    <audio id="audioPlayer" style="display: none;"></audio>
+
+    <!-- 通知组件 -->
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
